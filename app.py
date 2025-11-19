@@ -79,6 +79,11 @@ def key_to_int(k):
     return hash(k) % 65536  # tombol panjang jadi nilai unik
 
 
+# ---------------- Home Route ----------------
+@app.route('/')
+def index():
+    return redirect(url_for('login'))
+
 
 # ---------------- Register ----------------
 @app.route('/register', methods=['GET', 'POST'])
