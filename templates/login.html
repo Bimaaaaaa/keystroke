@@ -1,0 +1,58 @@
+<!-- Login.html -->
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+</head>
+<body>
+    <h2>Login</h2>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <ul>
+            {% for category, message in messages %}
+                <li><strong>{{ category }}:</strong> {{ message }}</li>
+            {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+
+    <form id="loginForm" method="POST">
+        <label>Username:</label><br>
+        <input type="text" id= "usernameInput" name="username" required><br><br>
+
+        <label>Password:</label><br>
+        <input type="password" id="passwordInput" name="password" required><br><br>
+
+        <!-- Hidden inputs untuk keystroke -->
+        <input type="hidden" id="dwell" name="dwell">
+        <input type="hidden" id="flight" name="flight">
+        <input type="hidden" id="typing_speed" name="typing_speed">
+        <input type="hidden" id="key_order" name="key_order">
+
+        <button type="submit">Login</button>
+    </form>
+
+    <p>Belum punya akun? <a href="{{ url_for('keystroke_register') }}">Register di sini</a></p>
+
+    <!-- Include common keystroke JS -->
+    <script src="{{ url_for('static', filename='js/keystroke_common.js') }}"></script>
+    <script>
+        // Inisialisasi recorder untuk login
+        initKeystrokeRecorder(
+            "passwordInput",
+            "loginForm",
+            "dwell",
+            "flight",
+            "typing_speed",
+            "key_order"
+        );
+
+        // Auto-focus ke input password saat halaman dimuat
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('usernameInput').focus();
+        });
+    </script>
+</body>
+</html>

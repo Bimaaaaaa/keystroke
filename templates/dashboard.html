@@ -1,0 +1,56 @@
+<!-- Dashboard.html -->
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard</title>
+    <script>
+        // Shortcut logout dengan Enter
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                window.location.href = "{{ url_for('logout') }}";
+            }
+        });
+    </script>
+</head>
+<body>
+    <h2>Dashboard</h2>
+    <p>Selamat datang, <b>{{ username }}</b>! Login berhasil.</p>
+
+    <p>
+        <b>Threshold Distance:</b> 
+        {% if threshold is not none %}
+            {{ threshold }}
+        {% else %}
+            belum tersedia
+        {% endif %}
+    </p>
+
+    {% if logs %}
+        <table border="1" cellpadding="5" cellspacing="0">
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Distance</th>
+                    <th>Status</th>
+                    <th>Timestamp</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for log in logs %}
+                    <tr>
+                        <td>{{ loop.index }}</td>
+                        <td>{{ log.distance }}</td>
+                        <td>{{ log.status }}</td>
+                        <td>{{ log.timestamp }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>Tidak ada log yang tersedia.</p>
+    {% endif %}
+
+    <p><a href="{{ url_for('logout') }}">Logout</a></p>
+</body>
+</html>
