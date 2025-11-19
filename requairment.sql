@@ -34,3 +34,9 @@ SELECT id, username FROM users;
 
 -- melihat kolom ml_score pada tabel keystroke_logs
 SELECT ml_scores FROM users WHERE id = 12;
+
+
+-- update failed attempts user id 5 menjadi 0
+UPDATE login_attempts
+SET failed_login_attempts = 0
+WHERE user_id = 5;
